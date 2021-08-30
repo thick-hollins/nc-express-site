@@ -1,22 +1,13 @@
-import { useEffect, useState } from "react";
-import { getArticles } from "../../utils/api"
+import Articles from "./Articles";
 
 const Home = () => {
-  const [articles, setArticles] = useState([])
-  useEffect(() => {
-    getArticles().then(apiArticles => {
-      setArticles(apiArticles)
-    })
-  }, [])
-    return (
-        <div>
-          <ul>
-            {articles.map(article => (
-              <li>test</li>
-            ))}
-          </ul>
-        </div>
-    );
+  return (
+    <div>
+      <h4>New comments:</h4>
+      <h4>Latest Articles:</h4>
+      <Articles />
+    </div>
+  )
 };
 
 export default Home;
