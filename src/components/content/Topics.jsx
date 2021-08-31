@@ -1,14 +1,13 @@
 import { getTopics } from "../../utils/api"
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Topics = () => {
-    const [topics, setTopics] = useState([])
+const Topics = ({ topics, setTopics }) => {
     useEffect(() => {
       getTopics().then(apiTopics => {
         setTopics(apiTopics)
       })
-    }, [])
+    }, [setTopics])
     return (
         <div>
           <p>Add a new topic</p>

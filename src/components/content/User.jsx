@@ -26,7 +26,7 @@ const User = () => {
         <div>
             <h3>{user.username}</h3>
             <p>{user.name}</p>
-            <img src={user.avatar_url} />
+            <img src={user.avatar_url} alt='' />
             <h4>Articles by this user:</h4>
             <ul>
               {articles.map(article => (

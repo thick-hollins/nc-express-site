@@ -1,35 +1,75 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { postArticle, getTopics } from "../../utils/api"
+import { Link } from "react-router-dom";
 
-const NewArticle = () => {
+const NewArticle = ({ topics, setTopics, appUser }) => {
+    const [articleAdded, setArticleAdded] = useState({})
     const [newTitle, setNewTitle] = useState('')
-    const [newCategory, setNewCategory] = useState('')
+    const [newTopicInput, setNewTopicInput] = useState('')
     const [newText, setNewText] = useState('')
 
+    useEffect(() => {
+        getTopics().then(apiTopics => {
+          setTopics(apiTopics)
+        })
+      }, [setTopics])
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        postArticle({
+            title: newTitle,
+            topic: newTopicInput,
+            body: newText
+        })
+            .then((article) => {
+            setArticleAdded(article);
+            })
+            .catch((err) => {
+            setArticleAdded(false);
+            });
+    };
+    if (articleAdded.article_id) {
+        return (
+        <div>
+            <p>Article Added!</p>
+            <Link to={`/articles/${articleAdded.article_id}`}>View your article</Link>
+        </div>
+        )
+    }
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <ul>
                 <li>
                     <label>
                         Title
-                        <input type='text'></input>
+                        <input type='text' id='article-title' value={newTitle} onChange={event => {
+                            setNewTitle(event.target.value)
+                            }} required />
                     </label>
                 </li>
                 <li>
                     <label>
-                        Category
-                        <select id="category-select">
-                            <option value="volvo">Volvo</option>
+                        Topic
+                        <select id="topic-select" onChange={event => {
+                            setNewTopicInput(event.target.value)
+                            }} required>
+                            <option value="" selected disabled hidden>Choose here</option>
+                            {topics.map(topic => (
+                                <option value={topic.slug}>{topic.slug}</option>
+                            ))}
                         </select>
                     </label>
                 </li>
                 <li>
                     <label>
                         Text
-                        <textarea></textarea>
+                        <textarea id='article-text' value={newText} onChange={event => {
+                            setNewText(event.target.value)
+                            }} required />
                     </label>
                 </li>
                 <li>
-                    <button>Submit</button>
+                    <button type='submit'>Submit</button>
                 </li>
             </ul>
         </form>

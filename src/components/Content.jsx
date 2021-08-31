@@ -1,4 +1,5 @@
 import { Switch, Route } from "react-router-dom";
+import { useState } from "react";
 import Home  from "./content/Home"
 import Article from "./content/Article"
 import Topics from "./content/Topics"
@@ -7,24 +8,25 @@ import Users from "./content/Users";
 import User from './content/User'
 import NewArticle from "./content/NewArticle";
 
-const Content = () => {
+const Content = ({ appUser }) => {
+    const [topics, setTopics] = useState([])
     return (
         <main>
             <Switch>
                 <Route exact path="/">
-                    <Home />
+                    <Home appUser={appUser} />
                 </Route>
                 <Route exact path="/articles/write">
-                    <NewArticle />
+                    <NewArticle topics={topics} setTopics={setTopics} appUser={appUser}/>
                 </Route>
                 <Route exact path="/articles/:article_id">
-                    <Article />
+                    <Article appUser={appUser} />
                 </Route>
                 <Route exact path="/articles">
                     <Articles />
                 </Route>
                 <Route exact path="/topics">
-                    <Topics />
+                    <Topics topics={topics} setTopics={setTopics}/>
                 </Route>
                 <Route exact path="/users/:username">
                     <User />

@@ -28,3 +28,19 @@ export const getUser = (username) => {
 export const getLikes = (username) => {
     return axios.get(`/users/${username}/likes`).then(({ data: { likes } })  => likes)
 }
+
+export const postArticle = (newArticle) => {
+    return axios.post(`/articles`, newArticle).then(({ data: { article } })  => article)
+}
+
+export const postComment = (newComment, article_id) => {
+    return axios.post(`/articles/${article_id}/comments`, newComment).then(({ data: { comment } })  => comment)
+}
+
+export const patchArticleVotes = (newVote, article_id) => {
+    return axios.patch(`/articles/${article_id}`, newVote).then(({ data: { article } })  => article)
+}
+
+export const patchCommentVotes = (newVote, comment_id) => {
+    return axios.patch(`/comments/${comment_id}`, newVote).then(({ data: { comment } })  => comment)
+}
