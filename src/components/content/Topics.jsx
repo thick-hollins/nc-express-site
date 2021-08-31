@@ -11,6 +11,7 @@ const Topics = () => {
     }, [])
     return (
         <div>
+          <p>Add a new topic</p>
             <ul>
             {topics.map(topic => (
               <li key={topic.slug}>

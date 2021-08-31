@@ -5,6 +5,7 @@ import Topics from "./content/Topics"
 import Articles from "./content/Articles";
 import Users from "./content/Users";
 import User from './content/User'
+import NewArticle from "./content/NewArticle";
 
 const Content = () => {
     return (
@@ -12,6 +13,9 @@ const Content = () => {
             <Switch>
                 <Route exact path="/">
                     <Home />
+                </Route>
+                <Route exact path="/articles/write">
+                    <NewArticle />
                 </Route>
                 <Route exact path="/articles/:article_id">
                     <Article />
