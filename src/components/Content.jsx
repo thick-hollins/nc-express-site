@@ -10,17 +10,18 @@ import NewArticle from "./content/NewArticle";
 
 const Content = ({ appUser }) => {
     const [topics, setTopics] = useState([])
+
     return (
         <main>
             <Switch>
                 <Route exact path="/">
-                    <Home appUser={appUser} />
+                    <Home />
                 </Route>
                 <Route exact path="/articles/write">
                     <NewArticle topics={topics} setTopics={setTopics} appUser={appUser}/>
                 </Route>
                 <Route exact path="/articles/:article_id">
-                    <Article appUser={appUser} />
+                    <Article />
                 </Route>
                 <Route exact path="/articles">
                     <Articles />

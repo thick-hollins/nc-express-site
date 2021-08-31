@@ -3,7 +3,7 @@ import { getArticles } from "../../utils/api"
 import ArticlePreview from './ArticlePreview'
 import { useQueryString } from "../../utils/hooks";
 
-const Articles = ({ appUser }) => {
+const Articles = () => {
     const queries = useQueryString()
     const [articles, setArticles] = useState([])
     useEffect(() => {
@@ -17,12 +17,12 @@ const Articles = ({ appUser }) => {
             <ul>
               {articles.map(article => (
                 <li key={article.article_id}>
-                  <ArticlePreview article={article} appUser={appUser} />
+                  <ArticlePreview article={article} />
                 </li>
               ))}
             </ul>
           </div>
-      );
-};
+      )
+}
 
 export default Articles;

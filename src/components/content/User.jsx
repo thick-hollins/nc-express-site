@@ -10,6 +10,7 @@ const User = () => {
     const [user, setUser] = useState([])
     const [articles, setArticles] = useState([])
     const [likes, setLikes] = useState([])
+
     useEffect(() => {
       getUser(username).then(apiUser => {
         setUser(apiUser)

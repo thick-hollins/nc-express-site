@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getComments, postComment, getArticle } from "../../utils/api"
 import Vote from '../buttons/Vote'
 
-const Article = ({ appUser }) => {
+const Article = () => {
     const { article_id } = useParams()
     const [article, setArticle] = useState({})
     const [comments, setComments] = useState([])
@@ -14,13 +14,13 @@ const Article = ({ appUser }) => {
       getArticle(article_id).then(apiArticle => {
         setArticle(apiArticle)
       })
-    }, [])
+    }, [article_id])
     
     useEffect(() => {      
       getComments(article_id).then(apiComments => {
         setComments(apiComments)
       })
-    }, [])
+    }, [article_id])
 
     const handleSubmit = (event) => {
       event.preventDefault();
