@@ -7,17 +7,25 @@ const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, ord
     const queries = useQueryString()
     const [articles, setArticles] = useState([])
     const topic = queries.get('topic')
+    const [total_count, setTotal_count] = useState(0)
+    const [total_pages, setTotal_pages] = useState(0)
+    const [page, setPage] = useState(1)
     useEffect(() => {
         queries.append('sort_by', sortBy)
         queries.append('order', order)
+        queries.append('page', page)
         getArticles(queries).then(({articles, total_count, total_pages, page}) => {
         setArticles(articles)
+        setTotal_count(+total_count)
+        setTotal_pages(+total_pages)
+        setPage(+page)
       })
-    }, [sortBy, order])
+    }, [sortBy, order, page])
 
       return (
           <div>
             {topic && <h2>{topic}</h2>}
+            {topic && <p>{total_count} articles</p>}
             <label>
               Sort By:
               <select value={sortBy} onChange={event => {
@@ -44,6 +52,13 @@ const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, ord
                 </li>
               ))}
             </ul>
+            <section>
+              <button disabled={page === 1} onClick={() => {
+                setPage(page => page - 1)
+              }}>⬅</button> Page {page} of {total_pages} <button disabled={page === total_pages} onClick={() => {
+                setPage(page => page + 1)
+              }}>➡</button>
+            </section>
           </div>
       )
 }

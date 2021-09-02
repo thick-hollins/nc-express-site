@@ -56,9 +56,9 @@ const NewArticle = ({ topics, setTopics }) => {
                         <select value ={newTopicInput} id="topic-select" onChange={event => {
                             setNewTopicInput(event.target.value)
                             }} required>
-                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="" defaultValue disabled hidden>Choose here</option>
                             {topics.map(topic => (
-                                <option value={topic.slug}>{topic.slug}</option>
+                                <option key={topic.slug} value={topic.slug}>{topic.slug}</option>
                             ))}
                         </select>
                     </label>
