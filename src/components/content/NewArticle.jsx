@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { postArticle, getTopics } from "../../utils/api"
 import { Link } from "react-router-dom";
 
-const NewArticle = ({ topics, setTopics, appUser }) => {
-    const [articleAdded, setArticleAdded] = useState({})
+const NewArticle = ({ topics, setTopics }) => {
+    const [articleAdded, setArticleAdded] = useState(null)
     const [newTitle, setNewTitle] = useState('')
     const [newTopicInput, setNewTopicInput] = useState('')
     const [newText, setNewText] = useState('')
@@ -22,17 +22,20 @@ const NewArticle = ({ topics, setTopics, appUser }) => {
             body: newText
         })
             .then((article) => {
-            setArticleAdded(article);
+            setArticleAdded(article.article_id);
+            setNewTitle('')
+            setNewTopicInput('')
+            setNewText('')
             })
             .catch((err) => {
             setArticleAdded(false);
             });
     };
-    if (articleAdded.article_id) {
+    if (articleAdded) {
         return (
         <div>
             <p>Article Added!</p>
-            <Link to={`/articles/${articleAdded.article_id}`}>View your article</Link>
+            <Link to={`/articles/${articleAdded}`}>View your article</Link>
         </div>
         )
     }

@@ -6,7 +6,9 @@ import Footer from './components/Footer';
 import { useState } from 'react';
 
 function App() {
+  
   const [appUser, setAppUser] = useState('sonic_hedgehog')
+
   return (
     <div className="App">
       <Header />

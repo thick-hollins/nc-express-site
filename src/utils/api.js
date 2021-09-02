@@ -2,7 +2,9 @@ import axios from "../axiosConfig"
 
 export const getArticles = (queries) => {
     const queryObject = Object.fromEntries(queries.entries())
-    return axios.get('/articles', { params: queryObject }).then(({ data: { articles } })  => articles)
+    return axios.get('/articles', { params: queryObject }).then(({ data: { articles }, headers: { page, total_count, total_pages } })  => {
+        return { articles, page, total_count, total_pages }
+    })
 }
 
 export const getArticle = (article_id) => {
@@ -25,12 +27,20 @@ export const getUser = (username) => {
     return axios.get(`/users/${username}`).then(({ data: { user } })  => user)
 }
 
-export const getLikes = (username) => {
+export const getArticleLikes = (username) => {
+    return axios.get(`/users/${username}/likes?liketype=articles`).then(({ data: { likes } })  => likes)
+}
+
+export const getVotes = (username) => {
     return axios.get(`/users/${username}/likes`).then(({ data: { likes } })  => likes)
 }
 
 export const postArticle = (newArticle) => {
     return axios.post(`/articles`, newArticle).then(({ data: { article } })  => article)
+}
+
+export const postTopic = (newTopic) => {
+    return axios.post(`/topics`, newTopic).then(({ data: { topic } })  => topic)
 }
 
 export const postComment = (newComment, article_id) => {
@@ -41,6 +51,18 @@ export const patchArticleVotes = (newVote, article_id) => {
     return axios.patch(`/articles/${article_id}`, newVote).then(({ data: { article } })  => article)
 }
 
+export const patchArticleText = (newText, article_id) => {
+    return axios.patch(`/articles/${article_id}`, newText).then(({ data: { article } })  => article)
+}
+
 export const patchCommentVotes = (newVote, comment_id) => {
     return axios.patch(`/comments/${comment_id}`, newVote).then(({ data: { comment } })  => comment)
+}
+
+export const deleteComment = (comment_id) => {
+    return axios.delete(`/comments/${comment_id}`)
+}
+
+export const deleteArticle = (article_id) => {
+    return axios.delete(`/articles/${article_id}`)
 }

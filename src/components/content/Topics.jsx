@@ -10,7 +10,7 @@ const Topics = ({ topics, setTopics }) => {
     }, [setTopics])
     return (
         <div>
-          <p>Add a new topic</p>
+          <Link to='/topics/new'>Add a new topic</Link>
             <ul>
             {topics.map(topic => (
               <li key={topic.slug}>

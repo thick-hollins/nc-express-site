@@ -1,11 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getArticles } from "../../utils/api";
-import { getUser } from "../../utils/api";
-import { getLikes } from '../../utils/api'
+import { getUser, getArticles, getArticleLikes } from "../../utils/api";
 import ArticlePreview from "./ArticlePreview";
 
-const User = () => {
+const User = ({ voteHistory, setVoteHistory, appUser }) => {
     const { username } = useParams()
     const [user, setUser] = useState([])
     const [articles, setArticles] = useState([])
@@ -15,11 +13,11 @@ const User = () => {
       getUser(username).then(apiUser => {
         setUser(apiUser)
       })
-      getArticles(new URLSearchParams({'author': username})).then(apiArticles => {
-        setArticles(apiArticles)
+      getArticles(new URLSearchParams({'author': username})).then(({ articles }) => {
+        setArticles(articles)
       })
-      getLikes(username).then(apiLikes => {
-        setLikes(apiLikes)
+      getArticleLikes(username).then(({ articles }) => {
+        setLikes(articles)
       })
     }, [username])
 
@@ -32,7 +30,7 @@ const User = () => {
             <ul>
               {articles.map(article => (
                 <li key={article.article_id}>
-                  <ArticlePreview article={article} />
+                  <ArticlePreview article={article} voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser} />
                 </li>
               ))}
             </ul>
@@ -40,7 +38,7 @@ const User = () => {
             <ul>
               {likes.map(like => (
                 <li key={like.article_id}>
-                  <ArticlePreview article={like} />
+                  <ArticlePreview article={like} voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser} />
                 </li>
               ))}
             </ul>

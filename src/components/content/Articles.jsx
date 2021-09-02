@@ -3,12 +3,12 @@ import { getArticles } from "../../utils/api"
 import ArticlePreview from './ArticlePreview'
 import { useQueryString } from "../../utils/hooks";
 
-const Articles = () => {
+const Articles = ({ voteHistory, setVoteHistory, appUser }) => {
     const queries = useQueryString()
     const [articles, setArticles] = useState([])
     useEffect(() => {
-        getArticles(queries).then(apiArticles => {
-        setArticles(apiArticles)
+        getArticles(queries).then(({articles, total_count, total_pages, page}) => {
+        setArticles(articles)
       })
     }, [])
 
@@ -17,7 +17,7 @@ const Articles = () => {
             <ul>
               {articles.map(article => (
                 <li key={article.article_id}>
-                  <ArticlePreview article={article} />
+                  <ArticlePreview article={article} voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser}/>
                 </li>
               ))}
             </ul>

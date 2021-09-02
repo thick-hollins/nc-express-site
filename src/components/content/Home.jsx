@@ -1,11 +1,11 @@
 import Articles from "./Articles";
 
-const Home = () => {
+const Home = ({ voteHistory, setVoteHistory, appUser }) => {
   return (
     <div>
       <h4>New comments:</h4>
       <h4>Latest Articles:</h4>
-      <Articles />
+      <Articles voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser} />
     </div>
   )
 };

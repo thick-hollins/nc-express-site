@@ -14,3 +14,9 @@
 - /users 
 - /users/:username 
 - /profile - change username, avatar, password
+
+when appUser is set, get array of liked articles. Add to array when vote is incremented. Read array when home, articles or article is rendered.
+
+Disable vote buttons
+
+add junction table to database, copy article like functionality over to comments, add tests
