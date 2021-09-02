@@ -24,9 +24,10 @@ const Vote = ({ resource, voteHistory, setVoteHistory }) => {
     }
     const handleClick = (value) => {
         setVotes(currentVotes => currentVotes + value)
-        if (!resource.comment_id) setVoteHistory(current => current.concat({article_id: resource.article_id, up: resource.up}))
-        if (resource.comment_id) setVoteHistory(current => current.concat({comment_id: resource.comment_id, up: resource.up}))
         votedValue = value === 1 ? '⬆' : '⬇'
+        let up = value === 1
+        if (!resource.comment_id) setVoteHistory(current => current.concat({article_id: resource.article_id, up: up}))
+        if (resource.comment_id) setVoteHistory(current => current.concat({comment_id: resource.comment_id, up: up}))
         const req = {inc_votes: value}
         if (!resource.comment_id) patchArticleVotes(req, resource.article_id)
         if (resource.comment_id) patchCommentVotes(req, resource.comment_id)

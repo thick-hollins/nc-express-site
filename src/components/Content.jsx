@@ -14,6 +14,8 @@ const Content = ({ appUser }) => {
 
     const [topics, setTopics] = useState([])
     const [voteHistory, setVoteHistory] = useState([])
+    const [order, setOrder] = useState('desc')
+    const [sortBy, setSortBy] = useState('created_at')
 
     useEffect(() => {
       getVotes(appUser).then(({ articles, comments }) => {
@@ -29,7 +31,7 @@ const Content = ({ appUser }) => {
         <main>
             <Switch>
                 <Route exact path="/">
-                    <Home voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser}/>
+                    <Home voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser} sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder}/>
                 </Route>
                 <Route exact path="/articles/write">
                     <NewArticle topics={topics} setTopics={setTopics} appUser={appUser}/>
@@ -38,7 +40,7 @@ const Content = ({ appUser }) => {
                     <Article voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser} />
                 </Route>
                 <Route exact path="/articles">
-                    <Articles voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser} />
+                    <Articles voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser} sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder} />
                 </Route>
                 <Route exact path="/topics">
                     <Topics topics={topics} setTopics={setTopics}/>

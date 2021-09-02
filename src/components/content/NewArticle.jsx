@@ -53,7 +53,7 @@ const NewArticle = ({ topics, setTopics }) => {
                 <li>
                     <label>
                         Topic
-                        <select id="topic-select" onChange={event => {
+                        <select value ={newTopicInput} id="topic-select" onChange={event => {
                             setNewTopicInput(event.target.value)
                             }} required>
                             <option value="" selected disabled hidden>Choose here</option>
