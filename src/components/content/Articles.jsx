@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../../utils/api"
 import ArticlePreview from './ArticlePreview'
-import { useQueryString } from "../../utils/hooks";
+import PageButtons from '../buttons/PageButtons'
+import { useQueryString } from "../../utils/hooks"
+import Loader from "react-loader-spinner"
 
 const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, order, setOrder }) => {
     const queries = useQueryString()
@@ -10,7 +12,9 @@ const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, ord
     const [total_count, setTotal_count] = useState(0)
     const [total_pages, setTotal_pages] = useState(0)
     const [page, setPage] = useState(1)
+    const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
+        setIsLoading(true)
         queries.append('sort_by', sortBy)
         queries.append('order', order)
         queries.append('page', page)
@@ -19,9 +23,19 @@ const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, ord
         setTotal_count(+total_count)
         setTotal_pages(+total_pages)
         setPage(+page)
+        setIsLoading(false)
       })
     }, [sortBy, order, page])
 
+      if(isLoading) return (
+        <Loader
+        type="ThreeDots"
+        color="#00BFFF"
+        height={100}
+        width={100}
+        timeout={3000} //3 secs
+      />
+      )
       return (
           <div>
             {topic && <h2>{topic}</h2>}
@@ -52,15 +66,10 @@ const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, ord
                 </li>
               ))}
             </ul>
-            <section>
-              <button disabled={page === 1} onClick={() => {
-                setPage(page => page - 1)
-              }}>⬅</button> Page {page} of {total_pages} <button disabled={page === total_pages} onClick={() => {
-                setPage(page => page + 1)
-              }}>➡</button>
-            </section>
+            <PageButtons page={page} setPage={setPage} total_pages={total_pages}/>
           </div>
       )
 }
 
 export default Articles;
+

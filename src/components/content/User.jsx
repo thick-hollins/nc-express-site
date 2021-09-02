@@ -26,7 +26,7 @@ const User = ({ voteHistory, setVoteHistory, appUser }) => {
             <h3>{user.username}</h3>
             <p>{user.name}</p>
             <img src={user.avatar_url} alt='' />
-            <h4>Articles by this user:</h4>
+            { articles.length !== 0 && <h4>Articles by this user:</h4> }
             <ul>
               {articles.map(article => (
                 <li key={article.article_id}>
@@ -34,7 +34,7 @@ const User = ({ voteHistory, setVoteHistory, appUser }) => {
                 </li>
               ))}
             </ul>
-            <h4>Liked articles:</h4>
+            {likes.length !== 0 && <h4>Liked articles:</h4>}
             <ul>
               {likes.map(like => (
                 <li key={like.article_id}>

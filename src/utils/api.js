@@ -11,8 +11,11 @@ export const getArticle = (article_id) => {
     return axios.get(`/articles/${article_id}`).then(({ data: { article } })  => article)
 }
 
-export const getComments = (article_id) => {
-    return axios.get(`/articles/${article_id}/comments`).then(({ data: { comments } })  => comments)
+export const getComments = (article_id, queries) => {
+    const queryObject = Object.fromEntries(queries.entries())
+    return axios.get(`/articles/${article_id}/comments`, { params: queryObject }).then(({ data: { comments }, headers: { page, total_count, total_pages } })  => { 
+        return { comments, total_count, page, total_pages } 
+    })
 }
 
 export const getTopics = () => {
@@ -28,7 +31,7 @@ export const getUser = (username) => {
 }
 
 export const getArticleLikes = (username) => {
-    return axios.get(`/users/${username}/likes?liketype=articles`).then(({ data: { likes } })  => likes)
+    return axios.get(`/users/${username}/likes?liketype=articles&up=true`).then(({ data: { likes } })  => likes)
 }
 
 export const getVotes = (username) => {
