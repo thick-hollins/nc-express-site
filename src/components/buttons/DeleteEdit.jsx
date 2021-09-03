@@ -2,7 +2,7 @@ import { deleteComment } from '../../utils/api'
 import { deleteArticle } from '../../utils/api'
 import { useHistory } from "react-router-dom";
 
-const DeleteEdit = ({ resource, setCommentChange, setEditingArticle }) => {
+const DeleteEdit = ({ resource, setCommentChange, setEditingArticle, setEditingComment }) => {
     let history = useHistory();
     const handleDelete = (e) => {
         e.preventDefault()
@@ -17,7 +17,8 @@ const DeleteEdit = ({ resource, setCommentChange, setEditingArticle }) => {
     }
     const handleEdit = (e) => {
         e.preventDefault()
-        setEditingArticle(true)
+        if (resource.comment_id) setEditingComment(resource.comment_id)
+        else setEditingArticle(true)
     }
     return (
         <>

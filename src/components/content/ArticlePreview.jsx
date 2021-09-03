@@ -13,7 +13,8 @@ const ArticlePreview = ({ article, voteHistory, setVoteHistory, appUser }) => {
                 <h3>{article.title}</h3>
             </Link>
             <p> by <Link to={`/users/${article.author}`}>{article.author}</Link> at {timeString} - {dateString}</p>
-            <p>{article.comment_count} comments</p>
+            {article.comment_count === 1 && <p>{article.comment_count} comment</p>}
+            {article.comment_count !== 1 && <p>{article.comment_count} comments</p>}
             { appUser !== article.author && <Vote resource={ articleResource } voteHistory={ voteHistory } setVoteHistory={ setVoteHistory }/> }
         </section>
     );

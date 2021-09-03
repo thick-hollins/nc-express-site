@@ -58,6 +58,10 @@ export const patchArticleText = (newText, article_id) => {
     return axios.patch(`/articles/${article_id}`, newText).then(({ data: { article } })  => article)
 }
 
+export const patchCommentText = (newText, comment_id) => {
+    return axios.patch(`/comments/${comment_id}`, newText).then(({ data: { comment } })  => comment)
+}
+
 export const patchCommentVotes = (newVote, comment_id) => {
     return axios.patch(`/comments/${comment_id}`, newVote).then(({ data: { comment } })  => comment)
 }

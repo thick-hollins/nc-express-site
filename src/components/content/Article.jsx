@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { getComments, postComment, getArticle, patchArticleText } from "../../utils/api"
 import Vote from '../buttons/Vote'
 import DeleteEdit from '../buttons/DeleteEdit'
+import Comment from './Comment'
+import EditComment from "./EditComment";
 import PageButtons from "../buttons/PageButtons";
 import Loader from "react-loader-spinner"
 import { useQueryString } from "../../utils/hooks"
-
 
 const Article = ({ voteHistory, setVoteHistory, appUser }) => {
     const { article_id } = useParams()
@@ -15,6 +16,7 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
     const [newBody, setNewBody] = useState('')
     const [commentChange, setCommentChange] = useState('')
     const [editingArticle, setEditingArticle] = useState(false)
+    const [editingComment, setEditingComment] = useState(-1)
     const [newText, setNewText] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [total_count, setTotal_count] = useState(0)
@@ -76,7 +78,7 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
                     <button type='submit'>Submit</button>
                 </li>
                 <li>
-                    <button type='submit'>Cancel</button>
+                    <button onClick={()=> setEditingArticle(false)}>Cancel</button>
                 </li>
             </ul>
         </form>
@@ -99,7 +101,7 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
             {article.body}
             {appUser === article.author && <DeleteEdit resource={articleResource} setEditingArticle={setEditingArticle} />}
             <h4>Comments ({total_count}):</h4>
-            <form onSubmit={handleSubmitNewComment}>
+            {editingComment === -1 && <form onSubmit={handleSubmitNewComment}>
               <label>
                   Text
                   <textarea id='comment-body' value={newBody} onChange={event => {
@@ -107,13 +109,11 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
                       }} required />
               </label>
               <button type='submit'>Submit</button>
-          </form>
+          </form> }
             <ul>
               {comments.map(comment => (
                 <li key={comment.comment_id}>
-                  {comment.body}
-                  {appUser !== comment.author && <Vote resource={{comment_id: comment.comment_id, votes: comment.votes}} voteHistory={ voteHistory } setVoteHistory={ setVoteHistory } />}
-                  {appUser === comment.author && <DeleteEdit resource={{comment_id: comment.comment_id}} setCommentChange={setCommentChange}/>}
+                  {comment.comment_id === editingComment ? <EditComment comment={comment} setEditingComment={setEditingComment} setCommentChange={setCommentChange}/> : <Comment resource={comment} voteHistory={ voteHistory } setVoteHistory={ setVoteHistory } setCommentChange={setCommentChange} setEditingComment={setEditingComment} appUser={appUser}/>}
                 </li>
               ))}
             </ul>
