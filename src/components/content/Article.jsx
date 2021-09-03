@@ -30,15 +30,16 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
         setNewText(article.body)
         setIsLoading(false)
       })
-    }, [article_id, commentChange, editingArticle])
+    }, [article_id, editingArticle])
     
     useEffect(() => {      
+      setIsLoading(true)
       queries.append('page', page)
-      getComments(article_id, queries).then(({ comments, page, total_count, total_pages }) => {
+      getComments(article_id, queries).then(({ comments, total_count, total_pages }) => {
         setComments(comments)
         setTotal_count(+total_count)
         setTotal_pages(+total_pages)
-        setPage(+page)
+        setIsLoading(false)
       })
     }, [article_id, commentChange, page])
 
@@ -58,15 +59,7 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
           .catch((err) => {
           });
     }
-    if(isLoading) return (
-      <Loader
-      type="ThreeDots"
-      color="#00BFFF"
-      height={100}
-      width={100}
-      timeout={3000} //3 secs
-    />
-    )
+
     if (editingArticle) {
       return (
         <form onSubmit={handleSubmitEditArticle}>
@@ -90,6 +83,15 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
       )
     }
     const articleResource = {article_id: article.article_id, votes: article.votes}
+    if(isLoading) return (
+      <Loader
+      type="ThreeDots"
+      color="#00BFFF"
+      height={100}
+      width={100}
+      timeout={3000} //3 secs
+    />
+    )
     return (
         <article>
             <h2>{article.title}</h2>
@@ -115,7 +117,7 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
                 </li>
               ))}
             </ul>
-            <PageButtons page={page} setPage={setPage} total_pages={total_pages}/>
+            {total_count > 0 && <PageButtons page={page} setPage={setPage} total_pages={total_pages}/> }
         </article>
     );
 };

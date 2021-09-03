@@ -5,6 +5,7 @@ import Article from "./content/Article"
 import Topics from "./content/Topics"
 import Articles from "./content/Articles";
 import Users from "./content/Users";
+import NotFound from "./content/NotFound"
 import User from './content/User'
 import NewArticle from "./content/NewArticle";
 import NewTopic from './content/NewTopic'
@@ -53,6 +54,9 @@ const Content = ({ appUser }) => {
                 </Route>
                 <Route exact path="/users">
                     <Users />
+                </Route>
+                <Route path="/">
+                    <NotFound />
                 </Route>
             </Switch>
         </main>
