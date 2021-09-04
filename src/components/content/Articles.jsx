@@ -4,6 +4,7 @@ import ArticlePreview from './ArticlePreview'
 import PageButtons from '../buttons/PageButtons'
 import { useQueryString } from "../../utils/hooks"
 import Loader from "react-loader-spinner"
+import Sort from "./Sort";
 
 const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, order, setOrder }) => {
     const queries = useQueryString()
@@ -37,28 +38,10 @@ const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, ord
       />
       )
       return (
-          <div>
+          <>
             {topic && <h2>{topic}</h2>}
             {topic && <p>{total_count} articles</p>}
-            <label>
-              Sort By:
-              <select value={sortBy} onChange={event => {
-                            setSortBy(event.target.value)
-                            }}>
-                <option value='created_at'>Created at</option>
-                <option value='comment_count'>Comment Count</option>
-                <option value='votes'>Votes</option>
-              </select>
-            </label>
-            <label>
-              Order:
-              <select value={order} onChange={event => {
-                            setOrder(event.target.value)
-                            }}>
-                <option value='desc'>Descending</option>
-                <option value='asc'>Ascending</option>
-              </select>
-            </label>
+            <Sort sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder}/>
             <ul>
               {articles.map(article => (
                 <li key={article.article_id}>
@@ -67,7 +50,7 @@ const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, ord
               ))}
             </ul>
             <PageButtons page={page} setPage={setPage} total_pages={total_pages}/>
-          </div>
+          </>
       )
 }
 

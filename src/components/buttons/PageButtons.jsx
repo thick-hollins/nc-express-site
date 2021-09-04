@@ -1,11 +1,11 @@
 const PageButtons = ({ page, setPage, total_pages }) => {
     return (
-        <section>
+        <section className='page-buttons'>
             <button disabled={page === 1} onClick={() => {
                 setPage(page => page - 1)
-                }}>⬅</button> Page {page} of {total_pages} <button disabled={page === total_pages} onClick={() => {
+                }}>&laquo;</button> Page {page} of {total_pages} <button disabled={page === total_pages} onClick={() => {
                     setPage(page => page + 1)
-                }}>➡</button>
+                }}>&raquo;</button>
             </section>
     );
 };

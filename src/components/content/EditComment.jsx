@@ -28,7 +28,7 @@ const EditComment = ({ comment, setEditingComment, setCommentChange }) => {
                 <button type='submit'>Submit</button>
             </li>
             <li>
-                <button onClick={() => setEditingComment(false)}>Cancel</button>
+                <button onClick={() => setEditingComment}>Cancel</button>
             </li>
         </ul>
     </form>

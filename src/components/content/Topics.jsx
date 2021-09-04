@@ -9,19 +9,19 @@ const Topics = ({ topics, setTopics }) => {
       })
     }, [setTopics])
     return (
-        <div>
-          <Link to='/topics/new'>Add a new topic</Link>
+        <>
+          <Link to='/topics/new'><button className='add-topic'>Add a new topic</button></Link>
             <ul>
             {topics.map(topic => (
               <li key={topic.slug}>
                 <Link to={`/articles?topic=${topic.slug}`}>
-                  <h4>{topic.slug}</h4>
+                  <h4 className='slug'>{topic.slug}</h4>
                 </Link>
-                  <p>{topic.description}</p>
+                  <p className='topic-description'>{topic.description}</p>
               </li>
             ))}
           </ul>
-        </div>
+        </>
     );
 };
 

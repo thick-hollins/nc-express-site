@@ -28,6 +28,7 @@ const Content = ({ appUser }) => {
         setVoteHistory(allVotes)
       })
     }, [appUser])
+
     return (
         <main>
             <Switch>

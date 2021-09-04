@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { patchArticleVotes, patchCommentVotes } from '../../utils/api'
+import upArrow from '../../img/up-arrow.svg'
+import downArrow from '../../img/down-arrow.svg'
+import { unstable_batchedUpdates } from "react-dom/cjs/react-dom.development";
 const Vote = ({ resource, voteHistory, setVoteHistory }) => {
 
     const [votes, setVotes] = useState(0)
@@ -39,9 +42,9 @@ const Vote = ({ resource, voteHistory, setVoteHistory }) => {
     }
     return (
         <div>
-            <button onClick={ () => handleClick(1) }>⬆</button>
-            <button onClick={ () => handleClick(-1) }>⬇</button>
-            <span> {votes}</span>
+            <span> {votes} </span>
+            <button className='vote-button' onClick={ () => handleClick(1) }><img src={upArrow} className='vote-arrow' alt='upvote'/></button>
+            <button className='vote-button' onClick={ () => handleClick(-1) }><img src={downArrow} className='vote-arrow' alt='downvote'/></button>
         </div>
     );
 };

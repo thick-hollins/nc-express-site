@@ -1,13 +1,18 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import profileImg from '../img/profile.svg'
 const Nav = () => {
+    const { pathname } = useLocation();
     return (
         <nav>
-            <ul>
-                <Link to='/'><li>home</li></Link>
-                <Link to='/topics'><li>topics</li></Link>
-                <Link to='/users'><li>users</li></Link>
-                <Link to='/articles/write'><li>write</li></Link>
-            </ul>
+            <NavLink className="nav-button" activeClassName="selected" exact to='/'>home</NavLink>
+            <NavLink className="nav-button" activeClassName="selected" to='/topics'
+                isActive={() => {
+                    return (pathname.startsWith('/topics') ||  pathname.startsWith('/articles')) && pathname !== '/articles/write'
+                }}>topics</NavLink>
+            <NavLink className="nav-button" activeClassName="selected" to='/users'>users</NavLink>
+            <NavLink className="nav-button" activeClassName="selected" to='/articles/write'>write</NavLink>
+            <NavLink className="nav-button nav-button-profile" activeClassName="selected" to='/articles/write'><img src={profileImg} className='profile-icon'/></NavLink>
         </nav>
     );
 };
