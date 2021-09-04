@@ -9,6 +9,7 @@ import NotFound from "./content/NotFound"
 import User from './content/User'
 import NewArticle from "./content/NewArticle";
 import NewTopic from './content/NewTopic'
+import Account from "./content/Account";
 import { getVotes } from "../utils/api";
 
 const Content = ({ appUser }) => {
@@ -55,6 +56,9 @@ const Content = ({ appUser }) => {
                 </Route>
                 <Route exact path="/users">
                     <Users />
+                </Route>
+                <Route exact path="/account">
+                    <Account appUser={appUser}/>
                 </Route>
                 <Route path="/">
                     <NotFound />

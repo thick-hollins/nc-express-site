@@ -35,7 +35,7 @@ const Nav = () => {
       <NavLink
         className="nav-button nav-button-profile"
         activeClassName="selected"
-        to="/profile"
+        to="/account"
       >
         <img src={profileImg} className="profile-icon" alt="profile" />
       </NavLink>
