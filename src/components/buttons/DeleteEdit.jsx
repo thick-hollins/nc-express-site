@@ -22,8 +22,8 @@ const DeleteEdit = ({ resource, setCommentChange, setEditingArticle, setEditingC
     }
     return (
         <>
-        <button onClick={handleDelete}>Delete</button>
-        <button onClick={handleEdit}>Edit</button>
+        <button className='white-button delete-edit' onClick={handleDelete}>Delete</button>
+        <button className='white-button delete-edit' onClick={handleEdit}>Edit</button>
         </>
     );
 };

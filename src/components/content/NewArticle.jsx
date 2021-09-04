@@ -35,7 +35,7 @@ const NewArticle = ({ topics, setTopics }) => {
         return (
         <div>
             <p>Article Added!</p>
-            <Link to={`/articles/${articleAdded}`}>View your article</Link>
+            <Link to={`/articles/${articleAdded}`}><button className='white-button'>View your article</button></Link>
         </div>
         )
     }
@@ -62,6 +62,7 @@ const NewArticle = ({ topics, setTopics }) => {
                             ))}
                         </select>
                     </label>
+                    <Link to='/topics/new'><button className='white-button'>Add a new topic</button></Link>
                 </li>
                 <li>
                     <label>
@@ -72,7 +73,7 @@ const NewArticle = ({ topics, setTopics }) => {
                     </label>
                 </li>
                 <li>
-                    <button type='submit'>Submit</button>
+                    <button type='submit' className='white-button'>Submit</button>
                 </li>
             </ul>
         </form>

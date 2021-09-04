@@ -151,7 +151,7 @@ label {
 .blue-link {
     color:  #20677a;
 }
-.add-topic {
+.white-button {
     border: none;
     text-align: center;
     background-color: white;
@@ -161,12 +161,14 @@ label {
     font-size: 0.9rem;
 }
 .slug {
-    font-size: 18px;
+    font-size: 22px;
     margin-bottom: 0.8rem;
     margin-top: 1.2rem;
+    font-weight: bold;
 }
 .topic-description {
     margin-bottom: 2rem;
+    margin-left: 0.5rem;
 }
 select {
     border-radius: 2px;
@@ -180,9 +182,6 @@ select {
 .avatar {
     width: 150px;
 }
-input {
-    width: 70%;
-}
 textarea {
     margin-left: 5px;
 }
@@ -190,7 +189,75 @@ textarea {
     background-color: white;
     border-radius: 0.4rem;
     padding: 0.5rem;
+    padding-right: 2rem;
     margin-bottom: 0.8rem;
     display: flex;
     justify-content: space-between;
+    width: 400px;
+}
+form li {
+    margin-bottom: 1rem;
+    border: none;
+}
+form input {
+    margin-left: 1rem;
+    padding: 5px;
+    border: none;
+    font-family: 'Barlow';
+    width: 21.5rem;
+}
+form select {
+    margin-left: 0.7rem;
+    padding: 5px;
+}
+textarea {
+    border: none;
+    width: 22rem;
+    height: 14rem;
+    vertical-align: top;
+    margin-left: 1rem;
+    font-family: 'Barlow';
+}
+form .white-button {
+    margin-left: 2.3rem;
+}
+.topic-title {
+    margin-top: 0;
+}
+.loading-container {
+    display: flex;
+    justify-content: center;
+}
+article {
+    line-height: 1.5rem;
+}
+.single-article-title {
+    line-height: 2rem;
+}
+.vote-buttons {
+    background-color: white;
+    width: fit-content;
+    border-radius: 5px;
+    padding: 2px;
+    padding-left: 8px;
+}
+.article-body {
+    margin-top: 1rem;
+}
+#comment-body {
+    height: 10rem;
+}
+.comment-block {
+    background-color: white;
+    border-radius: 0.4rem;
+    padding: 0.5rem;
+    padding-right: 2rem;
+    margin-bottom: 0.8rem;
+}
+.comment-info {
+    margin-bottom: 0.4rem;
+    font-size: 14px;
+}
+.delete-edit {
+    margin-right: 1rem;
 }

@@ -29,6 +29,7 @@ const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, ord
     }, [sortBy, order, page])
 
       if(isLoading) return (
+        <div className='loading-container'>
         <Loader
         type="ThreeDots"
         color="#00BFFF"
@@ -36,11 +37,12 @@ const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, ord
         width={100}
         timeout={3000} //3 secs
       />
+    </div>
       )
       return (
           <>
-            {topic && <h2>{topic}</h2>}
-            {topic && <p>{total_count} articles</p>}
+            {topic && <h2 className='topic-title'>{topic}</h2>}
+            {topic && <p className='article-count'>{total_count} articles</p>}
             <Sort sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder}/>
             <ul>
               {articles.map(article => (

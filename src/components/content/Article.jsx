@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getComments, postComment, getArticle, patchArticleText } from "../../utils/api"
 import Vote from '../buttons/Vote'
@@ -45,6 +45,18 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
       })
     }, [article_id, commentChange, page])
 
+    const date = new Date(article.created_at);
+    const dateString = date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+    const timeString = date.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  
+
     const handleSubmitNewComment = (event) => {
       event.preventDefault();
       postComment({ body: newBody }, article_id)
@@ -86,29 +98,41 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
     }
     const articleResource = {article_id: article.article_id, votes: article.votes}
     if(isLoading) return (
-      <Loader
-      type="ThreeDots"
-      color="#00BFFF"
-      height={100}
-      width={100}
-      timeout={3000} //3 secs
-    />
+      <div className='loading-container'>
+        <Loader
+        type="ThreeDots"
+        color="#00BFFF"
+        height={100}
+        width={100}
+        timeout={3000} //3 secs
+      />
+    </div>
     )
     return (
         <article>
-            <h2>{article.title}</h2>
+            <h2 className='single-article-title'>{article.title}</h2>
             {appUser !== article.author && <Vote resource={articleResource} voteHistory={ voteHistory } setVoteHistory={ setVoteHistory } /> }
-            {article.body}
+            <section className='article-body'>{article.body}</section>
+            <p>by <Link className="blue-link" to={`/users/${article.author}`}>
+            {article.author}
+          </Link> in <Link className="blue-link" to={`/articles?topic=${article.topic}`}>
+            {article.topic}
+          </Link>
+        </p>
+        <p>at {timeString} on {dateString}</p>
             {appUser === article.author && <DeleteEdit resource={articleResource} setEditingArticle={setEditingArticle} />}
             <h4>Comments ({total_count}):</h4>
             {editingComment === -1 && <form onSubmit={handleSubmitNewComment}>
-              <label>
-                  Text
+              <ul>
+                <li>
                   <textarea id='comment-body' value={newBody} onChange={event => {
                       setNewBody(event.target.value)
                       }} required />
-              </label>
-              <button type='submit'>Submit</button>
+                </li>
+                <li>
+              <button type='submit' className='white-button'>Add a comment</button>
+              </li>
+              </ul>
           </form> }
             <ul>
               {comments.map(comment => (

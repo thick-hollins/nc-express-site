@@ -5,7 +5,10 @@ const NotFound = () => {
     const history = useHistory()
 
     return (
-        <p>Content not found, <button onClick={() => history.goBack()}>Go Back</button></p>
+        <>
+        <p>Content not found</p>
+        <button className='white-button' onClick={() => history.goBack()}>Go Back</button>
+        </>
     );
 };
 

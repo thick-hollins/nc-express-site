@@ -17,18 +17,14 @@ const EditComment = ({ comment, setEditingComment, setCommentChange }) => {
         <form onSubmit={handleSubmitEditArticle}>
         <ul>
             <li>
-                <label>
-                    Text
-                    <textarea id='comment-text' value={newCommentText} onChange={event => {
+                <p>Edit your comment:</p>
+            <textarea id='comment-text' value={newCommentText} onChange={event => {
                         setNewCommentText(event.target.value)
                         }} required />
-                </label>
             </li>
             <li>
-                <button type='submit'>Submit</button>
-            </li>
-            <li>
-                <button onClick={() => setEditingComment}>Cancel</button>
+                <button className='white-button' type='submit'>Submit</button>                 <button className='white-button' onClick={() => setEditingComment}>Cancel</button>
+
             </li>
         </ul>
     </form>
