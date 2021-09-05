@@ -11,7 +11,7 @@ import NewArticle from "./content/NewArticle";
 import NewTopic from './content/NewTopic'
 import Account from "./content/Account";
 import { getVotes } from "../utils/api";
-import { AppUserContext } from '../contexts'
+import { AppUserContext, VoteHistoryContext } from '../contexts'
 
 const Content = () => {
 
@@ -34,40 +34,42 @@ const Content = () => {
     }, [appUser])
 
     return (
-        <main>
-            <Switch>
-                <Route exact path="/">
-                    <Home voteHistory={voteHistory} setVoteHistory={setVoteHistory} sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder}/>
-                </Route>
-                <Route exact path="/articles/write">
-                    <NewArticle topics={topics} setTopics={setTopics} />
-                </Route>
-                <Route exact path="/articles/:article_id">
-                    <Article voteHistory={voteHistory} setVoteHistory={setVoteHistory} />
-                </Route>
-                <Route exact path="/articles">
-                    <Articles voteHistory={voteHistory} setVoteHistory={setVoteHistory} sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder} />
-                </Route>
-                <Route exact path="/topics">
-                    <Topics topics={topics} setTopics={setTopics}/>
-                </Route>
-                <Route exact path="/topics/new">
-                    <NewTopic />
-                </Route>
-                <Route exact path="/users/:username">
-                    <User voteHistory={voteHistory} setVoteHistory={setVoteHistory} />
-                </Route>
-                <Route exact path="/users">
-                    <Users />
-                </Route>
-                <Route exact path="/account">
-                    <Account />
-                </Route>
-                <Route path="/">
-                    <NotFound />
-                </Route>
-            </Switch>
-        </main>
+        <VoteHistoryContext.Provider value={{ voteHistory, setVoteHistory }}>
+            <main>
+                <Switch>
+                    <Route exact path="/">
+                        <Home sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder}/>
+                    </Route>
+                    <Route exact path="/articles/write">
+                        <NewArticle topics={topics} setTopics={setTopics} />
+                    </Route>
+                    <Route exact path="/articles/:article_id">
+                        <Article />
+                    </Route>
+                    <Route exact path="/articles">
+                        <Articles sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder} />
+                    </Route>
+                    <Route exact path="/topics">
+                        <Topics topics={topics} setTopics={setTopics}/>
+                    </Route>
+                    <Route exact path="/topics/new">
+                        <NewTopic />
+                    </Route>
+                    <Route exact path="/users/:username">
+                        <User />
+                    </Route>
+                    <Route exact path="/users">
+                        <Users />
+                    </Route>
+                    <Route exact path="/account">
+                        <Account />
+                    </Route>
+                    <Route path="/">
+                        <NotFound />
+                    </Route>
+                </Switch>
+            </main>
+        </VoteHistoryContext.Provider>
     );
 };
 

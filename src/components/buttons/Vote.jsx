@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { patchArticleVotes, patchCommentVotes } from '../../utils/api'
 import upArrow from '../../img/up-arrow.svg'
 import downArrow from '../../img/down-arrow.svg'
 import upArrowBlack from '../../img/up-arrow-black.svg'
 import downArrowBlack from '../../img/down-arrow-black.svg'
+import { VoteHistoryContext } from "../../contexts";
 
-const Vote = ({ resource, voteHistory, setVoteHistory }) => {
+const Vote = ({ resource }) => {
 
     const [votes, setVotes] = useState(0)
+    const { voteHistory, setVoteHistory } = useContext(VoteHistoryContext)
 
     useEffect(() => {
         setVotes(resource.votes)

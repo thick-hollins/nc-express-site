@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Vote from "../buttons/Vote";
 import { AppUserContext } from "../../contexts";
 
-const ArticlePreview = ({ article, voteHistory, setVoteHistory }) => {
+const ArticlePreview = ({ article }) => {
   const { appUser } = useContext(AppUserContext)
 
   const articleResource = {
@@ -49,8 +49,6 @@ const ArticlePreview = ({ article, voteHistory, setVoteHistory }) => {
         {appUser !== article.author && (
           <Vote
             resource={articleResource}
-            voteHistory={voteHistory}
-            setVoteHistory={setVoteHistory}
           />
         )}
         {appUser === article.author && <div className='vote-display'>{article.votes} {article.votes === 1 ? 'vote' : 'votes'}</div>}

@@ -6,8 +6,6 @@ import { useContext } from "react";
 
 const Comment = ({
   resource,
-  voteHistory,
-  setVoteHistory,
   setCommentChange,
   setEditingComment
 }) => {
@@ -32,8 +30,6 @@ const Comment = ({
       {appUser !== resource.author && (
         <Vote
           resource={{ comment_id: resource.comment_id, votes: resource.votes }}
-          voteHistory={voteHistory}
-          setVoteHistory={setVoteHistory}
         />
       )}
       <div className='own-comment'>

@@ -5,7 +5,7 @@ import ArticlePreview from "./ArticlePreview";
 import UserPreview from "./UserPreview";
 import { AppUserContext } from "../../contexts";
 
-const User = ({ voteHistory, setVoteHistory }) => {
+const User = () => {
   const { appUser } = useContext(AppUserContext)
 
   const { username } = useParams();
@@ -37,8 +37,6 @@ const User = ({ voteHistory, setVoteHistory }) => {
           <li key={article.article_id}>
             <ArticlePreview
               article={article}
-              voteHistory={voteHistory}
-              setVoteHistory={setVoteHistory}
             />
           </li>
         ))}
@@ -49,8 +47,6 @@ const User = ({ voteHistory, setVoteHistory }) => {
           <li key={like.article_id}>
             <ArticlePreview
               article={like}
-              voteHistory={voteHistory}
-              setVoteHistory={setVoteHistory}
             />
           </li>
         ))}

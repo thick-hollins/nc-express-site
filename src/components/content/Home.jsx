@@ -1,9 +1,9 @@
 import Articles from "./Articles";
 
-const Home = ({ voteHistory, setVoteHistory, sortBy, setSortBy, order, setOrder }) => {
+const Home = ({ sortBy, setSortBy, order, setOrder }) => {
   return (
     <>
-      <Articles voteHistory={voteHistory} setVoteHistory={setVoteHistory} sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder}/>
+      <Articles sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder}/>
     </>
   )
 };

@@ -10,7 +10,7 @@ import Loader from "react-loader-spinner"
 import { useQueryString } from "../../utils/hooks"
 import { AppUserContext } from "../../contexts";
 
-const Article = ({ voteHistory, setVoteHistory }) => {
+const Article = () => {
     const { appUser } = useContext(AppUserContext)
     const { article_id } = useParams()
     const [article, setArticle] = useState({})
@@ -113,7 +113,7 @@ const Article = ({ voteHistory, setVoteHistory }) => {
     return (
         <article>
             <h2 className='single-article-title'>{article.title}</h2>
-            {appUser !== article.author && <Vote resource={articleResource} voteHistory={ voteHistory } setVoteHistory={ setVoteHistory } /> }
+            {appUser !== article.author && <Vote resource={articleResource} /> }
             {appUser === article.author && <div className='vote-display'>{article.votes} {article.votes === 1 ? 'vote' : 'votes'}</div>}
             <section className='article-body'>{article.body}</section>
             <p>by <Link className="blue-link" to={`/users/${article.author}`}>
@@ -140,7 +140,7 @@ const Article = ({ voteHistory, setVoteHistory }) => {
             <ul>
               {comments.map(comment => (
                 <li key={comment.comment_id}>
-                  {comment.comment_id === editingComment ? <EditComment comment={comment} setEditingComment={setEditingComment} setCommentChange={setCommentChange}/> : <Comment resource={comment} voteHistory={ voteHistory } setVoteHistory={ setVoteHistory } setCommentChange={setCommentChange} setEditingComment={setEditingComment}/>}
+                  {comment.comment_id === editingComment ? <EditComment comment={comment} setEditingComment={setEditingComment} setCommentChange={setCommentChange}/> : <Comment resource={comment} setCommentChange={setCommentChange} setEditingComment={setEditingComment}/>}
                 </li>
               ))}
             </ul>
