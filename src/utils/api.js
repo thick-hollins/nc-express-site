@@ -30,6 +30,10 @@ export const getUser = (username) => {
     return axios.get(`/users/${username}`).then(({ data: { user } })  => user)
 }
 
+export const patchUser = (username, req) => {
+    return axios.patch(`/users/${username}`, req).then(({ data: { user } })  => user)
+}
+
 export const getArticleLikes = (username) => {
     return axios.get(`/users/${username}/likes?liketype=articles&up=true`).then(({ data: { likes } })  => likes)
 }
