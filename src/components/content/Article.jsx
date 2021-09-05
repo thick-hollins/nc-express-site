@@ -1,77 +1,59 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { getComments, postComment, getArticle, patchArticleText } from "../../utils/api"
+import { postComment, patchArticleText } from "../../utils/api"
 import Vote from '../buttons/Vote'
 import DeleteEdit from '../buttons/DeleteEdit'
 import Comment from './Comment'
 import EditComment from "./EditComment";
 import PageButtons from "../buttons/PageButtons";
-import Loader from "react-loader-spinner"
-import { useQueryString } from "../../utils/hooks"
+import LoaderWrapper from '../buttons/LoaderWrapper'
+import { useQueryString, useArticle, useComments } from "../../utils/hooks"
 import { AppUserContext } from "../../contexts";
+import { formatDate } from "../../utils/helpers";
 
 const Article = () => {
     const { appUser } = useContext(AppUserContext)
     const { article_id } = useParams()
-    const [article, setArticle] = useState({})
-    const [comments, setComments] = useState([])
     const [newBody, setNewBody] = useState('')
-    const [commentChange, setCommentChange] = useState('')
     const [editingArticle, setEditingArticle] = useState(false)
     const [editingComment, setEditingComment] = useState(-1)
     const [newText, setNewText] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
     const [total_count, setTotal_count] = useState(0)
     const [total_pages, setTotal_pages] = useState(0)
     const [page, setPage] = useState(1)
+    const [postCommentLoading, setPostCommentLoading] = useState(false)
 
     const queries = useQueryString()
 
-    useEffect(() => {
-      setIsLoading(true)
-      getArticle(article_id).then(article => {
-        setArticle(article)
-        setNewText(article.body)
-        setIsLoading(false)
-      })
-    }, [article_id, editingArticle])
-    
-    useEffect(() => {      
-      setIsLoading(true)
-      queries.append('page', page)
-      getComments(article_id, queries).then(({ comments, total_count, total_pages }) => {
-        setComments(comments)
-        setTotal_count(+total_count)
-        setTotal_pages(+total_pages)
-        setIsLoading(false)
-      })
-    }, [article_id, commentChange, page])
+    const { article, articleIsLoading } = useArticle(article_id, editingArticle)
+    const { comments, commentsAreLoading, setComments } = useComments(article_id, editingComment, queries, page, setTotal_count, setTotal_pages)
 
-    const date = new Date(article.created_at);
-    const dateString = date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    });
-    const timeString = date.toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  
+    useEffect (() => {
+      setNewText(article.body)
+    },[editingArticle, article.body])
+    const {dateString, timeString} = formatDate(article)
 
     const handleSubmitNewComment = (event) => {
       event.preventDefault();
+      setPostCommentLoading(true)
       postComment({ body: newBody }, article_id)
-      .then(() => setCommentChange(newBody))
-          .catch((err) => {
+      .then((newComment) => {
+        setPostCommentLoading(false)
+        setNewBody('')
+        setComments(current => current.concat(newComment))
+      })
+        .catch((err) => {
           });
-      setNewBody('')
     }
 
     const handleSubmitEditArticle = (event) => {
       event.preventDefault();
+      setPostCommentLoading(true)
       patchArticleText({ body: newText }, article_id)
-      .then(() => setEditingArticle(false))
+      .then(() => {
+        setEditingArticle(false)
+        setPostCommentLoading(false)
+      })
           .catch((err) => {
           });
     }
@@ -99,16 +81,9 @@ const Article = () => {
       )
     }
     const articleResource = {article_id: article.article_id, votes: article.votes}
-    if(isLoading) return (
-      <div className='loading-container'>
-        <Loader
-        type="ThreeDots"
-        color="#00BFFF"
-        height={100}
-        width={100}
-        timeout={3000} //3 secs
-      />
-    </div>
+
+    if(articleIsLoading || commentsAreLoading || postCommentLoading) return (
+      <LoaderWrapper />
     )
     return (
         <article>
@@ -140,7 +115,7 @@ const Article = () => {
             <ul>
               {comments.map(comment => (
                 <li key={comment.comment_id}>
-                  {comment.comment_id === editingComment ? <EditComment comment={comment} setEditingComment={setEditingComment} setCommentChange={setCommentChange}/> : <Comment resource={comment} setCommentChange={setCommentChange} setEditingComment={setEditingComment}/>}
+                  {comment.comment_id === editingComment ? <EditComment comment={comment} setEditingComment={setEditingComment} /> : <Comment resource={comment} setComments={setComments} setEditingComment={setEditingComment}/>}
                 </li>
               ))}
             </ul>

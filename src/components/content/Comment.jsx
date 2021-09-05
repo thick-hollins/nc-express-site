@@ -3,24 +3,17 @@ import DeleteEdit from "../buttons/DeleteEdit";
 import { Link } from "react-router-dom";
 import { AppUserContext } from "../../contexts";
 import { useContext } from "react";
+import { formatDate } from "../../utils/helpers";
 
 const Comment = ({
   resource,
-  setCommentChange,
+  setComments,
   setEditingComment
 }) => {
   const { appUser } = useContext(AppUserContext)
 
-  const date = new Date(resource.created_at);
-  const dateString = date.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-  const timeString = date.toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const {dateString, timeString} = formatDate(resource)
+
   return (
     <div className="comment-block">
       {resource.body}
@@ -37,7 +30,7 @@ const Comment = ({
       {appUser === resource.author && (
         <DeleteEdit
         resource={{ comment_id: resource.comment_id }}
-        setCommentChange={setCommentChange}
+        setComments={setComments}
         setEditingArticle={setEditingComment}
         setEditingComment={setEditingComment}
         />

@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { postArticle, getTopics } from "../../utils/api"
 import { Link } from "react-router-dom";
+import LoaderWrapper from "../buttons/LoaderWrapper";
 
 const NewArticle = ({ topics, setTopics }) => {
     const [articleAdded, setArticleAdded] = useState(null)
     const [newTitle, setNewTitle] = useState('')
     const [newTopicInput, setNewTopicInput] = useState('')
     const [newText, setNewText] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         getTopics().then(apiTopics => {
@@ -16,6 +18,8 @@ const NewArticle = ({ topics, setTopics }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setIsLoading(true)
+
         postArticle({
             title: newTitle,
             topic: newTopicInput,
@@ -26,11 +30,15 @@ const NewArticle = ({ topics, setTopics }) => {
             setNewTitle('')
             setNewTopicInput('')
             setNewText('')
+            setIsLoading(false)
             })
             .catch((err) => {
             setArticleAdded(false);
             });
     };
+    if (isLoading) {
+        <LoaderWrapper />
+    }
     if (articleAdded) {
         return (
         <div>

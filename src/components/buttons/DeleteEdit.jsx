@@ -1,13 +1,15 @@
 import { deleteComment, deleteArticle } from '../../utils/api'
 import { useHistory } from "react-router-dom";
 
-const DeleteEdit = ({ resource, setCommentChange, setEditingArticle, setEditingComment }) => {
+const DeleteEdit = ({ resource, setComments, setEditingArticle, setEditingComment }) => {
     let history = useHistory();
     const handleDelete = (e) => {
         e.preventDefault()
         if (resource.comment_id) {
             deleteComment(resource.comment_id).then(() => {
-                setCommentChange(resource.comment_id)
+                setComments(current => {
+                    return current.filter(comment => comment.comment_id !== resource.comment_id)
+                })
             })
         } else {
             deleteArticle(resource.article_id)

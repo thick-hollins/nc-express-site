@@ -1,5 +1,5 @@
 import { Switch, Route } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Home  from "./content/Home"
 import Article from "./content/Article"
 import Topics from "./content/Topics"
@@ -19,8 +19,7 @@ const Content = () => {
     const [voteHistory, setVoteHistory] = useState([])
     const [order, setOrder] = useState('desc')
     const [sortBy, setSortBy] = useState('created_at')
-
-    const { appUser } = useContext(AppUserContext)
+    const [appUser, setAppUser] = useState('sonic_hedgehog')
 
     useEffect(() => {
       getVotes(appUser).then(({ articles, comments }) => {
@@ -32,8 +31,9 @@ const Content = () => {
         setVoteHistory(allVotes)
       })
     }, [appUser])
-
     return (
+        <AppUserContext.Provider value={{ appUser, setAppUser }}>
+
         <VoteHistoryContext.Provider value={{ voteHistory, setVoteHistory }}>
             <main>
                 <Switch>
@@ -70,6 +70,7 @@ const Content = () => {
                 </Switch>
             </main>
         </VoteHistoryContext.Provider>
+        </AppUserContext.Provider>
     );
 };
 

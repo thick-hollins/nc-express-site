@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Vote from "../buttons/Vote";
 import { AppUserContext } from "../../contexts";
+import { formatDate } from "../../utils/helpers";
 
 const ArticlePreview = ({ article }) => {
   const { appUser } = useContext(AppUserContext)
@@ -10,16 +11,8 @@ const ArticlePreview = ({ article }) => {
     article_id: article.article_id,
     votes: article.votes,
   };
-  const date = new Date(article.created_at);
-  const dateString = date.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-  const timeString = date.toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  
+  const {dateString, timeString} = formatDate(article)
 
   const sentences = article.body.split(".");
   const preview = sentences.length > 2 ? sentences[0] + "..." : sentences[0];

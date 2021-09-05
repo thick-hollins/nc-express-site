@@ -1,30 +1,35 @@
 import { useEffect, useState, useContext } from "react";
-import { getUser, patchUser } from "../../utils/api";
+import { patchUser } from "../../utils/api";
 import UserPreview from "./UserPreview";
-import { AppUserContext } from "../../contexts";
+import {  AppUserContext } from "../../contexts";
+import { useUser } from "../../utils/hooks";
+import LoaderWrapper from '../buttons/LoaderWrapper'
 
 const Account = () => {
   const { appUser } = useContext(AppUserContext)
-
-  const [user, setUser] = useState({});
   const [editingName, setEditingName] = useState(false);
   const [editingAvatar, setEditingAvatar] = useState(false);
   const [newName, setNewName] = useState("");
   const [newAvatar, setNewAvatar] = useState("");
-  useEffect(() => {
-    getUser(appUser).then((apiUser) => {
-      setUser(apiUser);
-      setNewName(apiUser.name);
-      setNewAvatar(apiUser.avatar_url);
-    });
-  }, []);
-  const handleCancel = (e) => {
-    e.preventDefault();
-    if (editingAvatar) setNewAvatar(user.avatar_url);
-    if (editingName) setNewName(user.name);
-    setEditingAvatar(false);
-    setEditingName(false);
-  };
+
+
+const { user, userIsLoading, setUser} = useUser(appUser)
+
+useEffect(() => {
+  setNewName(user.name)
+}, [editingName, user.name])
+
+useEffect(() => {
+  setNewAvatar(user.avatar_url)
+}, [editingAvatar, user.avatar_url])
+
+const handleCancel = (e) => {
+  e.preventDefault();
+  if (editingAvatar) setNewAvatar(user.avatar_url);
+  if (editingName) setNewName(user.name);
+  setEditingAvatar(false);
+  setEditingName(false);
+};
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editingAvatar) {
@@ -40,7 +45,9 @@ const Account = () => {
     setEditingAvatar(false);
     setEditingName(false);
   };
-
+  if(userIsLoading) return (
+    <LoaderWrapper />
+  )
   return (
     <div>
       <p>You are logged in as {user.username}</p>

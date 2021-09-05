@@ -4,7 +4,7 @@ const UserPreview = ({ user }) => {
     return (
         <section  className='user-list-box' >
             <div className='user-text'>
-                <Link to={`users/${user.username}`}>
+                <Link to={`/users/${user.username}`}>
                     <h3 className='username-title'>{user.username}</h3>
                 </Link>
                 <p>{user.name}</p>

@@ -1,32 +1,22 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
-import { getUser, getArticles, getArticleLikes } from "../../utils/api";
+import { useContext } from "react";
 import ArticlePreview from "./ArticlePreview";
 import UserPreview from "./UserPreview";
 import { AppUserContext } from "../../contexts";
+import { useUser, useArticleLikes, useArticles } from "../../utils/hooks";
+import LoaderWrapper from "../buttons/LoaderWrapper";
 
 const User = () => {
   const { appUser } = useContext(AppUserContext)
 
   const { username } = useParams();
-  const [user, setUser] = useState([]);
-  const [articles, setArticles] = useState([]);
-  const [likes, setLikes] = useState([]);
+  const { articles, articlesAreLoading } = useArticles(new URLSearchParams({author: username}))
+  const { user, userIsLoading } = useUser(username)
+  const { likes, articleLikesAreLoading } = useArticleLikes(username)
 
-  useEffect(() => {
-    getUser(username).then((apiUser) => {
-      setUser(apiUser);
-    });
-    getArticles(new URLSearchParams({ author: username })).then(
-      ({ articles }) => {
-        setArticles(articles);
-      }
-    );
-    getArticleLikes(username).then(({ articles }) => {
-      setLikes(articles);
-    });
-  }, [username]);
-
+  if(articlesAreLoading || userIsLoading || articleLikesAreLoading) return (
+    <LoaderWrapper />
+  )
   return (
     <div>
       <UserPreview user={user} />

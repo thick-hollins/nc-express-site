@@ -23,7 +23,7 @@ const EditComment = ({ comment, setEditingComment, setCommentChange }) => {
                         }} required />
             </li>
             <li>
-                <button className='white-button' type='submit'>Submit</button>                 <button className='white-button' onClick={() => setEditingComment}>Cancel</button>
+                <button className='white-button' type='submit'>Submit</button> <button className='white-button' onClick={() => setEditingComment}>Cancel</button>
 
             </li>
         </ul>
