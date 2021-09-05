@@ -6,7 +6,8 @@ import { useQueryString } from "../../utils/hooks"
 import Loader from "react-loader-spinner"
 import Sort from "./Sort";
 
-const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, order, setOrder }) => {
+const Articles = ({ voteHistory, setVoteHistory, sortBy, setSortBy, order, setOrder }) => {
+
     const queries = useQueryString()
     const [articles, setArticles] = useState([])
     const topic = queries.get('topic')
@@ -47,7 +48,7 @@ const Articles = ({ voteHistory, setVoteHistory, appUser, sortBy, setSortBy, ord
             <ul>
               {articles.map(article => (
                 <li key={article.article_id}>
-                  <ArticlePreview article={article} voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser}/>
+                  <ArticlePreview article={article} voteHistory={voteHistory} setVoteHistory={setVoteHistory} />
                 </li>
               ))}
             </ul>

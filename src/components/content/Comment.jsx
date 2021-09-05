@@ -1,15 +1,18 @@
 import Vote from "../buttons/Vote";
 import DeleteEdit from "../buttons/DeleteEdit";
 import { Link } from "react-router-dom";
+import { AppUserContext } from "../../contexts";
+import { useContext } from "react";
 
 const Comment = ({
   resource,
   voteHistory,
   setVoteHistory,
   setCommentChange,
-  setEditingComment,
-  appUser,
+  setEditingComment
 }) => {
+  const { appUser } = useContext(AppUserContext)
+
   const date = new Date(resource.created_at);
   const dateString = date.toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -34,6 +37,7 @@ const Comment = ({
         />
       )}
       <div className='own-comment'>
+      <div>
       {appUser === resource.author && (
         <DeleteEdit
         resource={{ comment_id: resource.comment_id }}
@@ -42,6 +46,7 @@ const Comment = ({
         setEditingComment={setEditingComment}
         />
         )}
+        </div>
         {appUser === resource.author && <div className='vote-display'>{resource.votes} {resource.votes === 1 ? 'vote' : 'votes'}</div>}
       </div>
     </div>

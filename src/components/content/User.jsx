@@ -1,10 +1,13 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getUser, getArticles, getArticleLikes } from "../../utils/api";
 import ArticlePreview from "./ArticlePreview";
 import UserPreview from "./UserPreview";
+import { AppUserContext } from "../../contexts";
 
-const User = ({ voteHistory, setVoteHistory, appUser }) => {
+const User = ({ voteHistory, setVoteHistory }) => {
+  const { appUser } = useContext(AppUserContext)
+
   const { username } = useParams();
   const [user, setUser] = useState([]);
   const [articles, setArticles] = useState([]);
@@ -36,7 +39,6 @@ const User = ({ voteHistory, setVoteHistory, appUser }) => {
               article={article}
               voteHistory={voteHistory}
               setVoteHistory={setVoteHistory}
-              appUser={appUser}
             />
           </li>
         ))}
@@ -49,7 +51,6 @@ const User = ({ voteHistory, setVoteHistory, appUser }) => {
               article={like}
               voteHistory={voteHistory}
               setVoteHistory={setVoteHistory}
-              appUser={appUser}
             />
           </li>
         ))}

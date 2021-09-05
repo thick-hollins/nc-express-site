@@ -1,5 +1,5 @@
 import { Switch, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Home  from "./content/Home"
 import Article from "./content/Article"
 import Topics from "./content/Topics"
@@ -11,13 +11,16 @@ import NewArticle from "./content/NewArticle";
 import NewTopic from './content/NewTopic'
 import Account from "./content/Account";
 import { getVotes } from "../utils/api";
+import { AppUserContext } from '../contexts'
 
-const Content = ({ appUser }) => {
+const Content = () => {
 
     const [topics, setTopics] = useState([])
     const [voteHistory, setVoteHistory] = useState([])
     const [order, setOrder] = useState('desc')
     const [sortBy, setSortBy] = useState('created_at')
+
+    const { appUser } = useContext(AppUserContext)
 
     useEffect(() => {
       getVotes(appUser).then(({ articles, comments }) => {
@@ -34,16 +37,16 @@ const Content = ({ appUser }) => {
         <main>
             <Switch>
                 <Route exact path="/">
-                    <Home voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser} sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder}/>
+                    <Home voteHistory={voteHistory} setVoteHistory={setVoteHistory} sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder}/>
                 </Route>
                 <Route exact path="/articles/write">
-                    <NewArticle topics={topics} setTopics={setTopics} appUser={appUser}/>
+                    <NewArticle topics={topics} setTopics={setTopics} />
                 </Route>
                 <Route exact path="/articles/:article_id">
-                    <Article voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser} />
+                    <Article voteHistory={voteHistory} setVoteHistory={setVoteHistory} />
                 </Route>
                 <Route exact path="/articles">
-                    <Articles voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser} sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder} />
+                    <Articles voteHistory={voteHistory} setVoteHistory={setVoteHistory} sortBy={sortBy} setSortBy={setSortBy} order={order} setOrder={setOrder} />
                 </Route>
                 <Route exact path="/topics">
                     <Topics topics={topics} setTopics={setTopics}/>
@@ -52,13 +55,13 @@ const Content = ({ appUser }) => {
                     <NewTopic />
                 </Route>
                 <Route exact path="/users/:username">
-                    <User voteHistory={voteHistory} setVoteHistory={setVoteHistory} appUser={appUser}/>
+                    <User voteHistory={voteHistory} setVoteHistory={setVoteHistory} />
                 </Route>
                 <Route exact path="/users">
                     <Users />
                 </Route>
                 <Route exact path="/account">
-                    <Account appUser={appUser}/>
+                    <Account />
                 </Route>
                 <Route path="/">
                     <NotFound />

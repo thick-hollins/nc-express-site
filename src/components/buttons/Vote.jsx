@@ -4,6 +4,7 @@ import upArrow from '../../img/up-arrow.svg'
 import downArrow from '../../img/down-arrow.svg'
 import upArrowBlack from '../../img/up-arrow-black.svg'
 import downArrowBlack from '../../img/down-arrow-black.svg'
+
 const Vote = ({ resource, voteHistory, setVoteHistory }) => {
 
     const [votes, setVotes] = useState(0)

@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Vote from "../buttons/Vote";
+import { AppUserContext } from "../../contexts";
 
-const ArticlePreview = ({ article, voteHistory, setVoteHistory, appUser }) => {
+const ArticlePreview = ({ article, voteHistory, setVoteHistory }) => {
+  const { appUser } = useContext(AppUserContext)
+
   const articleResource = {
     article_id: article.article_id,
     votes: article.votes,
@@ -18,7 +22,7 @@ const ArticlePreview = ({ article, voteHistory, setVoteHistory, appUser }) => {
   });
 
   const sentences = article.body.split(".");
-  const preview = sentences.length > 1 ? sentences[0] + "..." : sentences[0];
+  const preview = sentences.length > 2 ? sentences[0] + "..." : sentences[0];
   return (
     <section className="article-preview">
       <Link to={"/articles/" + article.article_id}>

@@ -268,7 +268,7 @@ article {
 .own-comment {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 .vote-display {
     background-color: white;

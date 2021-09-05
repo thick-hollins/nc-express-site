@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getComments, postComment, getArticle, patchArticleText } from "../../utils/api"
 import Vote from '../buttons/Vote'
 import DeleteEdit from '../buttons/DeleteEdit'
@@ -8,8 +8,10 @@ import EditComment from "./EditComment";
 import PageButtons from "../buttons/PageButtons";
 import Loader from "react-loader-spinner"
 import { useQueryString } from "../../utils/hooks"
+import { AppUserContext } from "../../contexts";
 
-const Article = ({ voteHistory, setVoteHistory, appUser }) => {
+const Article = ({ voteHistory, setVoteHistory }) => {
+    const { appUser } = useContext(AppUserContext)
     const { article_id } = useParams()
     const [article, setArticle] = useState({})
     const [comments, setComments] = useState([])
@@ -138,7 +140,7 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
             <ul>
               {comments.map(comment => (
                 <li key={comment.comment_id}>
-                  {comment.comment_id === editingComment ? <EditComment comment={comment} setEditingComment={setEditingComment} setCommentChange={setCommentChange}/> : <Comment resource={comment} voteHistory={ voteHistory } setVoteHistory={ setVoteHistory } setCommentChange={setCommentChange} setEditingComment={setEditingComment} appUser={appUser}/>}
+                  {comment.comment_id === editingComment ? <EditComment comment={comment} setEditingComment={setEditingComment} setCommentChange={setCommentChange}/> : <Comment resource={comment} voteHistory={ voteHistory } setVoteHistory={ setVoteHistory } setCommentChange={setCommentChange} setEditingComment={setEditingComment}/>}
                 </li>
               ))}
             </ul>

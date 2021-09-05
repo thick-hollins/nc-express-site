@@ -1,5 +1,4 @@
-import { deleteComment } from '../../utils/api'
-import { deleteArticle } from '../../utils/api'
+import { deleteComment, deleteArticle } from '../../utils/api'
 import { useHistory } from "react-router-dom";
 
 const DeleteEdit = ({ resource, setCommentChange, setEditingArticle, setEditingComment }) => {

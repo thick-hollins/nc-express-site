@@ -49,7 +49,7 @@ const NewTopic = () => {
                 </label>
             </li>
             <li>
-                <button type='submit'>Submit</button>
+                <button type='submit' className='white-button'>Submit</button>
             </li>
         </ul>
     </form>

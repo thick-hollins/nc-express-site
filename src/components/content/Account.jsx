@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getUser, patchUser } from "../../utils/api";
 import UserPreview from "./UserPreview";
+import { AppUserContext } from "../../contexts";
 
-const Account = ({ appUser }) => {
+const Account = () => {
+  const { appUser } = useContext(AppUserContext)
+
   const [user, setUser] = useState({});
   const [editingName, setEditingName] = useState(false);
   const [editingAvatar, setEditingAvatar] = useState(false);
