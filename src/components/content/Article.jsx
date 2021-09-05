@@ -87,10 +87,10 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
                     </label>
                 </li>
                 <li>
-                    <button type='submit'>Submit</button>
+                    <button type='submit' className='white-button'>Submit</button>
                 </li>
                 <li>
-                    <button onClick={()=> setEditingArticle(false)}>Cancel</button>
+                    <button className='white-button' onClick={()=> setEditingArticle(false)}>Cancel</button>
                 </li>
             </ul>
         </form>
@@ -112,6 +112,7 @@ const Article = ({ voteHistory, setVoteHistory, appUser }) => {
         <article>
             <h2 className='single-article-title'>{article.title}</h2>
             {appUser !== article.author && <Vote resource={articleResource} voteHistory={ voteHistory } setVoteHistory={ setVoteHistory } /> }
+            {appUser === article.author && <div className='vote-display'>{article.votes} {article.votes === 1 ? 'vote' : 'votes'}</div>}
             <section className='article-body'>{article.body}</section>
             <p>by <Link className="blue-link" to={`/users/${article.author}`}>
             {article.author}

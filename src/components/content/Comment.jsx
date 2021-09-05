@@ -33,14 +33,17 @@ const Comment = ({
           setVoteHistory={setVoteHistory}
         />
       )}
+      <div className='own-comment'>
       {appUser === resource.author && (
         <DeleteEdit
-          resource={{ comment_id: resource.comment_id }}
-          setCommentChange={setCommentChange}
-          setEditingArticle={setEditingComment}
-          setEditingComment={setEditingComment}
+        resource={{ comment_id: resource.comment_id }}
+        setCommentChange={setCommentChange}
+        setEditingArticle={setEditingComment}
+        setEditingComment={setEditingComment}
         />
-      )}
+        )}
+        {appUser === resource.author && <div className='vote-display'>{resource.votes} {resource.votes === 1 ? 'vote' : 'votes'}</div>}
+      </div>
     </div>
   );
 };

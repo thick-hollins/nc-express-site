@@ -39,8 +39,8 @@ const Vote = ({ resource, voteHistory, setVoteHistory }) => {
 
     const handleCancel = (value) => {
         setVotes(currentVotes => currentVotes - value)
-        if (!resource.comment_id) setVoteHistory(current => current.filter(article => article.comment_id !== resource.comment_id))
-        if (resource.comment_id) setVoteHistory(current => current.filter(article => article.comment_id !== resource.comment_id))
+        if (!resource.comment_id) setVoteHistory(current => current.filter(article => article.article_id !== resource.article_id))
+        if (resource.comment_id) setVoteHistory(current => current.filter(comment => comment.comment_id !== resource.comment_id))
         const req = {inc_votes: 'undo'}
         if (!resource.comment_id) patchArticleVotes(req, resource.article_id)
         if (resource.comment_id) patchCommentVotes(req, resource.comment_id)

@@ -49,6 +49,8 @@ const ArticlePreview = ({ article, voteHistory, setVoteHistory, appUser }) => {
             setVoteHistory={setVoteHistory}
           />
         )}
+        {appUser === article.author && <div className='vote-display'>{article.votes} {article.votes === 1 ? 'vote' : 'votes'}</div>}
+
       </div>
     </section>
   );
