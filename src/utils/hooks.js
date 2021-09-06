@@ -10,15 +10,21 @@ export const useQueryString = () => {
 export const useArticle = (article_id, editingArticle) => {
     const [article, setArticle] = useState({})
     const [articleIsLoading, setArticleIsLoading] = useState(false)
+    const [articleNotFound, setArticleNotFound] = useState(false)
 
     useEffect(() => {
         setArticleIsLoading(true)
         getArticle(article_id).then(article => {
+          if (!article.article_id) {
+            setArticleNotFound(true)
+          }
           setArticle(article)
           setArticleIsLoading(false)
+        }).catch(err => {
+          setArticleNotFound(true)
         })
       }, [article_id, editingArticle])  
-    return { article, articleIsLoading }
+    return { article, articleIsLoading, articleNotFound }
 }
 
 export const useComments = (article_id, editingComment, queries, page, setTotal_count, setTotal_pages) => {

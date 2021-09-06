@@ -66,8 +66,8 @@ const Vote = ({ resource }) => {
 
   if (votedValue) {
     return (
-      <div className="vote-buttons">
-        <span> {votes} </span>
+      <div className="vote__buttons-box">
+        <p className='vote__count'> {votes} </p>
         {votedValue === 1 && (
           <button className="vote__button" onClick={() => handleCancel(1)}>
             <img
@@ -91,7 +91,7 @@ const Vote = ({ resource }) => {
   }
   return (
     <div className="vote__buttons-box">
-      <span> {votes} </span>
+      <p className='vote__count'> {votes} </p>
       <button className="vote__button" onClick={() => handleClick(1)}>
         <img src={upArrow} className="vote__arrow" alt="upvote" />
       </button>

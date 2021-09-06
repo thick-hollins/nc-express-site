@@ -10,6 +10,7 @@ import LoaderWrapper from "../buttons/LoaderWrapper";
 import { useQueryString, useArticle, useComments } from "../../utils/hooks";
 import { AppUserContext } from "../../contexts";
 import { formatDate } from "../../utils/helpers";
+import NotFound from './NotFound'
 
 const Article = () => {
   const { appUser } = useContext(AppUserContext);
@@ -25,7 +26,7 @@ const Article = () => {
 
   const queries = useQueryString();
 
-  const { article, articleIsLoading } = useArticle(article_id, editingArticle);
+  const { article, articleIsLoading, articleNotFound } = useArticle(article_id, editingArticle);
   const { comments, commentsAreLoading, setComments } = useComments(
     article_id,
     editingComment,
@@ -101,9 +102,15 @@ const Article = () => {
     article_id: article.article_id,
     votes: article.votes,
   };
-
-  if (articleIsLoading || commentsAreLoading || postCommentLoading)
+  if (articleNotFound) {
+    return <NotFound />
+  }
+  
+  if (articleIsLoading || commentsAreLoading || postCommentLoading) {
     return <LoaderWrapper />;
+  }
+  
+
   return (
     <article>
       <h2 className="article__title">{article.title}</h2>
