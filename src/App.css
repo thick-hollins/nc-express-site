@@ -120,7 +120,7 @@ nav {
     margin-right: 0;
 
 }
-.nav_button--selected {
+.nav__button--selected {
     background-color: #3DCAF2;
     color: white;
     font-weight: bold;
