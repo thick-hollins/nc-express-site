@@ -5,11 +5,11 @@ const Nav = () => {
   const { pathname } = useLocation();
   return (
     <nav>
-      <NavLink className="nav-button" activeClassName="selected" exact to="/">
+      <NavLink className="nav__button" activeClassName="selected" exact to="/">
         home
       </NavLink>
       <NavLink
-        className="nav-button"
+        className="nav__button"
         activeClassName="selected"
         to="/topics"
         isActive={() => {
@@ -22,22 +22,22 @@ const Nav = () => {
       >
         topics
       </NavLink>
-      <NavLink className="nav-button" activeClassName="selected" to="/users">
+      <NavLink className="nav__button" activeClassName="selected" to="/users">
         users
       </NavLink>
       <NavLink
-        className="nav-button"
+        className="nav__button"
         activeClassName="selected"
         to="/articles/write"
       >
         write
       </NavLink>
       <NavLink
-        className="nav-button nav-button-profile"
-        activeClassName="selected"
+        className="nav__button nav__button--profile"
+        activeClassName="nav__button--selected"
         to="/account"
       >
-        <img src={profileImg} className="profile-icon" alt="profile" />
+        <img src={profileImg} className="nav__profile-icon" alt="profile" />
       </NavLink>
     </nav>
   );

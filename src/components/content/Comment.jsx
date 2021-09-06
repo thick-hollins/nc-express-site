@@ -15,9 +15,9 @@ const Comment = ({
   const {dateString, timeString} = formatDate(resource)
 
   return (
-    <div className="comment-block">
+    <div className="comment__box">
       {resource.body}
-      <p className='comment-info'>
+      <p className='comment__by-at'>
         by <Link to={`/users/${resource.author}`} className='blue-link'>{resource.author}</Link> at {timeString} on {dateString}
       </p>
       {appUser !== resource.author && (
@@ -25,7 +25,7 @@ const Comment = ({
           resource={{ comment_id: resource.comment_id, votes: resource.votes }}
         />
       )}
-      <div className='own-comment'>
+      <div className='comment__by-author-box'>
       <div>
       {appUser === resource.author && (
         <DeleteEdit

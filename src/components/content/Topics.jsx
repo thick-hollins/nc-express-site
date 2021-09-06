@@ -15,9 +15,9 @@ const Topics = ({ topics, setTopics }) => {
             {topics.map(topic => (
               <li key={topic.slug}>
                 <Link to={`/articles?topic=${topic.slug}`}>
-                  <h4 className='slug'>{topic.slug}</h4>
+                  <h4 className='topics__slug'>{topic.slug}</h4>
                 </Link>
-                  <p className='topic-description'>{topic.description}</p>
+                  <p className='topics__description'>{topic.description}</p>
               </li>
             ))}
           </ul>

@@ -23,8 +23,8 @@ const DeleteEdit = ({ resource, setComments, setEditingArticle, setEditingCommen
     }
     return (
         <>
-        <button className='white-button delete-edit' onClick={handleDelete}>Delete</button>
-        <button className='white-button delete-edit' onClick={handleEdit}>Edit</button>
+        <button className='white-button' onClick={handleDelete}>Delete</button>
+        <button className='white-button' onClick={handleEdit}>Edit</button>
         </>
     );
 };

@@ -2,7 +2,7 @@ import Loader from "react-loader-spinner";
 
 const LoaderWrapper = () => {
   return (
-    <div className="loading-container">
+    <div className="loader__wrapper">
       <Loader
         type="ThreeDots"
         color="#00BFFF"

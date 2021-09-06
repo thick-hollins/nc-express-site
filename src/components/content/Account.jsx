@@ -52,7 +52,7 @@ const handleCancel = (e) => {
     <div>
       <p>You are logged in as {user.username}</p>
       <UserPreview user={user} />
-      <div className="edit-account">
+      <div className="account__box">
         {!editingName && !editingAvatar && (
           <>
             <button
