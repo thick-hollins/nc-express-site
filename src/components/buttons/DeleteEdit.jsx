@@ -22,10 +22,10 @@ const DeleteEdit = ({ resource, setComments, setEditingArticle, setEditingCommen
         else setEditingArticle(true)
     }
     return (
-        <>
+        <div className='delete-edit__buttons-box'>
         <button className='white-button' onClick={handleDelete}>Delete</button>
         <button className='white-button' onClick={handleEdit}>Edit</button>
-        </>
+        </div>
     );
 };
 

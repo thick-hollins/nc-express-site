@@ -56,8 +56,8 @@ select {
 }
 textarea {
     border: none;
-    width: 22rem;
-    height: 14rem;
+    width: 19rem;
+    height: 13rem;
     vertical-align: top;
     margin-left: 1rem;
     font-family: 'Barlow';
@@ -140,6 +140,12 @@ nav {
     display: flex;
     justify-content: space-between;
 }
+.delete-edit__buttons-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 9rem;
+}
 .article-preview__article-title {
     margin-top: 0.1rem;
     margin-bottom: 0.8rem;
@@ -185,11 +191,20 @@ nav {
     margin-bottom: 0.5rem;
 }
 .page-buttons__box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding-bottom: 1rem;
+    width: 10rem;
 }
-.page-buttons button {
+.page-buttons__buttons {
     border: none;
-    background-color: rgb(242, 246, 250);
+    text-align: center;
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    color: rgb(100, 100, 100);
+    font-size: 0.9rem;
 }
 .article-preview__time {
     font-size: 10px;
@@ -215,11 +230,10 @@ nav {
     background-color: white;
     border-radius: 0.4rem;
     padding: 0.5rem;
-    padding-right: 2rem;
     margin-bottom: 0.8rem;
     display: flex;
     justify-content: space-between;
-    width: 350px;
+    width: 330px;
 }
 form li {
     margin-bottom: 1rem;
@@ -227,10 +241,14 @@ form li {
 }
 form input {
     margin-left: 1rem;
+    margin-top: 0.3rem;
     padding: 5px;
     border: none;
     font-family: 'Barlow';
-    width: 21.5rem;
+    width: 19rem;
+}
+form textarea {
+    margin-top: 0.3rem;
 }
 form select {
     margin-left: 0.7rem;

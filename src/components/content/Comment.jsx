@@ -26,7 +26,7 @@ const Comment = ({ resource, setComments, setEditingComment }) => {
         />
       )}
       <div className="comment__by-author-box">
-        <div>
+
           {appUser === resource.author && (
             <DeleteEdit
               resource={{ comment_id: resource.comment_id }}
@@ -35,7 +35,7 @@ const Comment = ({ resource, setComments, setEditingComment }) => {
               setEditingComment={setEditingComment}
             />
           )}
-        </div>
+
         {appUser === resource.author && (
           <div className="vote-display">
             {resource.votes} {resource.votes === 1 ? "vote" : "votes"}
